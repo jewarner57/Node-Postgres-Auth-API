@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  app:
+    container_name: app
+    build: .
+    ports:
+      - "3001:3001"
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    environment:
+      WAIT_HOSTS: postgres:5432
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - 55432:5432/tcp
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DATABASE}
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
