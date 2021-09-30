@@ -3,10 +3,10 @@ FROM node:12.17.0
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY package*.json /usr/src/app
+COPY package*.json /usr/src/app/
 RUN npm install nodemon -g && npm install
 COPY ./database.sql /docker-entrypoint-initdb.d/
-COPY . /usr/src/app
+COPY . /usr/src/app/
 
 EXPOSE 3001
 
